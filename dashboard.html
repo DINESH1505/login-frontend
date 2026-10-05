@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="style2.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-page">
+
+        <div class="dashboard-header">
+
+            <div>
+                <h2>My Dashboard</h2>
+
+                <p>Welcome back!</p>
+            </div>
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-content">
+
+            <div class="welcome-card">
+
+                <h1>
+                    Welcome, <span id="username"></span> 👋
+                </h1>
+
+                <p>
+                    You have successfully logged in
+                    to your account.
+                </p>
+
+            </div>
+
+            <div class="user-card">
+
+                <div class="user-avatar">
+                    👤
+                </div>
+
+                <div class="user-info">
+
+                    <h3 id="username">User</h3>
+
+                    <p id="email">user@example.com</p>
+
+                </div>
+
+            </div>
+
+            <div class="dashboard-cards">
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        👤
+                    </div>
+
+                    <h3>Profile</h3>
+
+                    <p>
+                        View and manage your
+                        profile information.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        📊
+                    </div>
+
+                    <h3>Activity</h3>
+
+                    <p>
+                        Check your recent
+                        account activity.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon">
+                        ⚙️
+                    </div>
+
+                    <h3>Settings</h3>
+
+                    <p>
+                        Manage your account
+                        settings.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+            <div class="info-section">
+
+                <h2>About Dashboard</h2>
+
+                <p>
+                    This dashboard allows you to
+                    access your account information,
+                    view your activities and manage
+                    your settings from one place.
+                </p>
+
+            </div>
+
+            <div class="dashboard-logout">
+
+                <button id="logoutBtn">
+                    🚪 Logout
+                </button>
+
+            </div>
+
+
+            <p id="message"></p>
+
+
+        </div>
+
+        <div class="dashboard-footer">
+
+            © 2026 My Application |
+            All Rights Reserved
+
+        </div>
+
+    </div>
+         <script>
+
+        const API_URL =
+            "http://localhost:8080/api/auth";
+
+        
+        async function checkSession() {
+
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/session`,
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+                if (!response.ok) {
+
+                    window.location.href = "index.html";
+
+                    return;
+                }
+
+                const data = await response.json();
+
+                document.getElementById("username")
+                    .textContent =
+                    "Hello, " + data.username;
+
+                document.getElementById("email")
+                    .textContent =
+                    data.email;
+
+            } catch (error) {
+
+                console.error(error);
+
+                window.location.href = "index.html";
+            }
+        }
+
+
+        // LOGOUT
+        document.getElementById("logoutBtn")
+            .addEventListener("click", async function() {
+
+                    const response = await fetch(
+                        "http://localhost:8080/api/auth/logout",
+                        {
+                            method: "POST",
+                            credentials: "include"
+                        }
+                    );
+
+                    if (response.ok) {
+
+                        window.location.href =
+                            "index.html";
+                    }
+
+            });
+
+    </script>
+
+
+</body>
+</html>
+
+
+  
